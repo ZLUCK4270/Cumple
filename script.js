@@ -1,7 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Generate stars
     const starsContainer = document.getElementById('stars');
-    const numberOfStars = 100;
+    // Generar menos estrellas en dispositivos móviles para evitar saturar el procesador
+    const isMobile = window.innerWidth <= 480;
+    const numberOfStars = isMobile ? 35 : 100;
 
     for (let i = 0; i < numberOfStars; i++) {
         const star = document.createElement('div');
@@ -55,7 +57,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Simple purple confetti effect
     function createConfetti() {
         const colors = ['#7b2cbf', '#9d4edd', '#e0aaff', '#ffffff'];
-        for(let i = 0; i < 70; i++) {
+        // Generar menos partículas en móvil 
+        const confettiCount = window.innerWidth <= 480 ? 30 : 70;
+        
+        for(let i = 0; i < confettiCount; i++) {
             const confetti = document.createElement('div');
             confetti.style.position = 'absolute';
             confetti.style.width = '10px';

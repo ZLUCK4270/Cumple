@@ -10,19 +10,17 @@ body, html {
     margin: 0;
     padding: 0;
     width: 100%;
-    height: 100%;
+    min-height: 100vh;
     background: linear-gradient(135deg, var(--bg-dark) 0%, #240046 100%);
     font-family: 'Outfit', sans-serif;
     color: var(--text-light);
-    overflow: hidden;
+    overflow-x: hidden;
     display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 /* Stars background */
 #stars {
-    position: absolute;
+    position: fixed;
     width: 100%;
     height: 100%;
     z-index: 1;
@@ -37,8 +35,9 @@ body, html {
 }
 
 @keyframes twinkle {
+    /* box-shadow is removed here as animating it causes heavy repaints and lag on mobile */
     0%, 100% { opacity: 0.2; transform: scale(0.8); }
-    50% { opacity: 1; transform: scale(1.2); box-shadow: 0 0 10px var(--accent); }
+    50% { opacity: 1; transform: scale(1.2); }
 }
 
 /* Glassmorphism Card */
@@ -46,10 +45,13 @@ body, html {
     position: relative;
     z-index: 2;
     perspective: 1000px;
+    margin: auto;
+    padding: 2rem 0;
 }
 
 .card {
-    width: 350px;
+    width: 90%;
+    max-width: 400px;
     min-height: 480px;
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(15px);
@@ -193,4 +195,41 @@ button:hover {
 @keyframes float {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-10px); }
+}
+
+/* Responsive adjustment for Mobile */
+@media (max-width: 480px) {
+    /* Disable rotating heavy gradient behind card on mobile which lags when combined with blur */
+    .card::before {
+        display: none; 
+    }
+    .card {
+        min-height: auto;
+        padding: 1.5rem 1rem;
+    }
+    h1 {
+        font-size: 2rem;
+    }
+    .inside h2 {
+        font-size: 1.5rem;
+    }
+    .inside p {
+        font-size: 0.9rem;
+        margin-bottom: 0.8rem;
+    }
+    .quote {
+        font-size: 0.8rem;
+        padding-left: 10px;
+    }
+    .icon {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+    }
+    .bts-logos {
+        font-size: 1.2rem;
+        margin-top: 0.5rem;
+    }
+    .borahae {
+        font-size: 1.1rem;
+    }
 }
